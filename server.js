@@ -1,22 +1,18 @@
-var express = require("express");
-var app = express();
-var path = require("path");
-var http = require("http").createServer(app);
-var io = require("socket.io")(http); // load socket.io
+const express = require("express");
+const app = express();
+const http = require("http");
+const server = http.createServer(app);
+const { Server } = require("socket.io");
+const io = new Server(server);
 
+const path = require("path");
 app.use(express.static(path.join(__dirname, "public")));
 
-app.get("/", function(req, res) {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
-});
-
-// Handle socket connections
 io.on("connection", function(socket) {
   console.log("A user connected");
 
   socket.on("chat message", function(msg) {
-    console.log("Message: " + msg);
-    io.emit("chat message", msg); // Send to all clients
+    io.emit("chat message", msg);
   });
 
   socket.on("disconnect", function() {
@@ -24,7 +20,6 @@ io.on("connection", function(socket) {
   });
 });
 
-var PORT = 3000;
-http.listen(PORT, function() {
-  console.log("Server running at http://localhost:" + PORT);
+server.listen(3000, function() {
+  console.log("Server is running");
 });
