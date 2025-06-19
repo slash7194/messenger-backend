@@ -11,8 +11,8 @@ app.use(express.static(path.join(__dirname, "public")));
 io.on("connection", function(socket) {
   console.log("A user connected");
 
-  socket.on("chat message", function(msg) {
-    io.emit("chat message", msg);
+  socket.on("chat message", function(data) {
+    io.emit("chat message", data);
   });
 
   socket.on("disconnect", function() {

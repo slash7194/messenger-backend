@@ -5,12 +5,19 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
+  <div class="username-container">
+    <label for="username">Username:</label>
+    <input id="username" autocomplete="off" placeholder="Enter your name" />
+  </div>
+
   <div class="chat-container">
     <ul id="messages"></ul>
     <form id="chat-form">
-      <input id="m" autocomplete="off" /><button>Send</button>
+      <input id="m" autocomplete="off" placeholder="Type a message" />
+      <button type="submit">Send</button>
     </form>
   </div>
+
   <script src="/socket.io/socket.io.js"></script>
   <script src="script.js"></script>
 </body>
